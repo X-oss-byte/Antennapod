@@ -1,3 +1,5 @@
+# The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
+
 # built application files
 *.apk
 *.ap_
@@ -41,3 +43,18 @@ proguard
 *.DS_Store
 src/de/danoeh/antennapod/util/flattr/FlattrConfig.java
 gradle.properties
+
+# Buck
+/.buckd
+/buck-out
+/buck-cache
+
+# Keystores
+# In Buck, all input files must live under the project root.
+# Therefore, you need to create the following files in this
+# project with your own keystore:
+keystore/debug.keystore
+# Most likely, you can use the standard debug keystore by running
+# the following:
+#
+#     cp ~/.android/debug.keystore keystore/debug.keystore
