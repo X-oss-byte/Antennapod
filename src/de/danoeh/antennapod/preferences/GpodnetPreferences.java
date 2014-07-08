@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.preferences;
 
 import android.content.Context;
@@ -48,7 +49,7 @@ public class GpodnetPreferences {
     private static boolean preferencesLoaded = false;
 
     private static SharedPreferences getPreferences() {
-        return PodcastApp.getInstance().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return PodcastApp.getAppContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     private static synchronized void ensurePreferencesLoaded() {
@@ -148,7 +149,7 @@ public class GpodnetPreferences {
             writePreference(PREF_SYNC_REMOVED, removedFeeds);
         }
         feedListLock.unlock();
-        GpodnetSyncService.sendSyncIntent(PodcastApp.getInstance());
+        GpodnetSyncService.sendSyncIntent(PodcastApp.getAppContext());
     }
 
     public static void addRemovedFeed(String feed) {
@@ -161,7 +162,7 @@ public class GpodnetPreferences {
             writePreference(PREF_SYNC_ADDED, addedFeeds);
         }
         feedListLock.unlock();
-        GpodnetSyncService.sendSyncIntent(PodcastApp.getInstance());
+        GpodnetSyncService.sendSyncIntent(PodcastApp.getAppContext());
     }
 
     public static Set<String> getAddedFeedsCopy() {

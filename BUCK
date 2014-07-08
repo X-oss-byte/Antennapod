@@ -37,9 +37,11 @@ android_build_config(
   package = 'de.danoeh.antennapod',
 )
 
+APP_CLASS_SOURCE = 'src/de/danoeh/antennapod/AppShell.java'
+
 android_library(
   name = 'main-lib',
-  srcs = glob(['src/de/danoeh/antennapod/**/*.java']),
+  srcs = glob(['src/de/danoeh/antennapod/**/*.java'], excludes = [APP_CLASS_SOURCE]),
   deps = [
     ':all-jars',
     ':dslv-lib',
@@ -47,6 +49,15 @@ android_library(
     ':appcompat',
     ':build-config',
     ':res',
+  ],
+)
+
+android_library(
+  name = 'application-lib',
+  srcs = [APP_CLASS_SOURCE],
+  deps = [
+    ':build-config',
+    ':jars__buck-android-support',
   ],
 )
 
@@ -106,8 +117,16 @@ android_binary(
   manifest = ':manifest',
   target = 'Google Inc.:Google APIs:19',
   keystore = ':debug_keystore',
+  use_split_dex = True,
+  exopackage = True,
+  primary_dex_patterns = [
+    '^de/danoeh/antennapod/AppShell^',
+    '^de/danoeh/antennapod/BuildConfig^',
+    '^com/facebook/buck/android/support/exopackage/'
+  ],
   deps = [
     ':main-lib',
+    ':application-lib',
   ],
 )
 

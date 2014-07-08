@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.feed;
 
 import de.danoeh.antennapod.PodcastApp;
@@ -253,7 +254,7 @@ public class FeedItem extends FeedComponent implements
             public String call() throws Exception {
 
                 if (contentEncoded == null || description == null) {
-                    DBReader.loadExtraInformationOfFeedItem(PodcastApp.getInstance(), FeedItem.this);
+                    DBReader.loadExtraInformationOfFeedItem(PodcastApp.getAppContext(), FeedItem.this);
 
                 }
                 return (contentEncoded != null) ? contentEncoded : description;

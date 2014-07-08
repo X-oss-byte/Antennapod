@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.util;
 
 import android.app.Activity;
@@ -51,7 +52,7 @@ public class StorageUtils {
 	/** Get the number of free bytes that are available on the external storage. */
 	public static long getFreeSpaceAvailable() {
 		StatFs stat = new StatFs(UserPreferences.getDataFolder(
-				PodcastApp.getInstance(), null).getAbsolutePath());
+				PodcastApp.getAppContext(), null).getAbsolutePath());
         long availableBlocks;
         long blockSize;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {

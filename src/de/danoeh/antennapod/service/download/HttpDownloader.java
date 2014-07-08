@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.service.download;
 
 import android.net.http.AndroidHttpClient;
@@ -104,7 +105,7 @@ public class HttpDownloader extends Downloader {
                 return;
             }
 
-            if (!StorageUtils.storageAvailable(PodcastApp.getInstance())) {
+            if (!StorageUtils.storageAvailable(PodcastApp.getAppContext())) {
                 onFail(DownloadError.ERROR_DEVICE_NOT_FOUND, null);
                 return;
             }

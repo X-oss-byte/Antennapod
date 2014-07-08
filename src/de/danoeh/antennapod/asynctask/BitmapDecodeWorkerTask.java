@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.asynctask;
 
 import android.graphics.BitmapFactory;
@@ -57,8 +58,8 @@ public class BitmapDecodeWorkerTask extends Thread {
         // check if imageview is still supposed to display this image
         if (tagsMatching(target) && cBitmap.getBitmap() != null) {
             Drawable[] drawables = new Drawable[]{
-                    PodcastApp.getInstance().getResources().getDrawable(android.R.color.transparent),
-                    new BitmapDrawable(PodcastApp.getInstance().getResources(), cBitmap.getBitmap())
+                    PodcastApp.getAppContext().getResources().getDrawable(android.R.color.transparent),
+                    new BitmapDrawable(PodcastApp.getAppContext().getResources(), cBitmap.getBitmap())
             };
             TransitionDrawable transitionDrawable = new TransitionDrawable(drawables);
             target.setImageDrawable(transitionDrawable);

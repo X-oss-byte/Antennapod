@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.service.playback;
 
 import android.annotation.SuppressLint;
@@ -758,7 +759,7 @@ public class PlaybackService extends Service {
                         Log.d(TAG, "saveCurrentPosition: performing auto flattr since played duration " + Integer.toString(m.getPlayedDuration())
                                 + " is " + UserPreferences.getPlayedDurationAutoflattrThreshold() * 100 + "% of file duration " + Integer.toString(duration));
                     item.getFlattrStatus().setFlattrQueue();
-                    DBWriter.setFeedItemFlattrStatus(PodcastApp.getInstance(), item, false);
+                    DBWriter.setFeedItemFlattrStatus(PodcastApp.getAppContext(), item, false);
                 }
             }
             playable.saveCurrentPosition(PreferenceManager

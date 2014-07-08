@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.asynctask;
 
 import android.os.Handler;
@@ -37,7 +38,7 @@ public class ImageDiskCache {
         final String DEFAULT_PATH = "imagecache";
         final long DEFAULT_MAX_CACHE_SIZE = 10 * 1024 * 1024;
 
-        File cacheDir = PodcastApp.getInstance().getExternalCacheDir();
+        File cacheDir = PodcastApp.getAppContext().getExternalCacheDir();
         if (cacheDir == null) {
             return null;
         }

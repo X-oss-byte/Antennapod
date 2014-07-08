@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.feed;
 
 import android.content.SharedPreferences;
@@ -239,7 +240,7 @@ public class FeedMedia extends FeedFile implements Playable {
     @Override
     public void loadMetadata() throws PlayableException {
         if (item == null && itemID != 0) {
-            item = DBReader.getFeedItem(PodcastApp.getInstance(), itemID);
+            item = DBReader.getFeedItem(PodcastApp.getAppContext(), itemID);
         }
     }
 
@@ -248,7 +249,7 @@ public class FeedMedia extends FeedFile implements Playable {
         if (getChapters() == null && !localFileAvailable()) {
             ChapterUtils.loadChaptersFromStreamUrl(this);
             if (getChapters() != null && item != null) {
-                DBWriter.setFeedItem(PodcastApp.getInstance(),
+                DBWriter.setFeedItem(PodcastApp.getAppContext(),
                         item);
             }
         }
@@ -327,7 +328,7 @@ public class FeedMedia extends FeedFile implements Playable {
     @Override
     public void saveCurrentPosition(SharedPreferences pref, int newPosition) {
         setPosition(newPosition);
-        DBWriter.setFeedMediaPlaybackInformation(PodcastApp.getInstance(), this);
+        DBWriter.setFeedMediaPlaybackInformation(PodcastApp.getAppContext(), this);
     }
 
     @Override
@@ -355,10 +356,10 @@ public class FeedMedia extends FeedFile implements Playable {
             @Override
             public String call() throws Exception {
                 if (item == null) {
-                    item = DBReader.getFeedItem(PodcastApp.getInstance(), itemID);
+                    item = DBReader.getFeedItem(PodcastApp.getAppContext(), itemID);
                 }
                 if (item.getContentEncoded() == null || item.getDescription() == null) {
-                    DBReader.loadExtraInformationOfFeedItem(PodcastApp.getInstance(), item);
+                    DBReader.loadExtraInformationOfFeedItem(PodcastApp.getAppContext(), item);
 
                 }
                 return (item.getContentEncoded() != null) ? item.getContentEncoded() : item.getDescription();

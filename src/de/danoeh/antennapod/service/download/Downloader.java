@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.service.download;
 
 import android.content.Context;
@@ -29,7 +30,7 @@ public abstract class Downloader implements Callable<Downloader> {
 	protected abstract void download();
 
 	public final Downloader call() {
-        WifiManager wifiManager = (WifiManager) PodcastApp.getInstance().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) PodcastApp.getAppContext().getSystemService(Context.WIFI_SERVICE);
         WifiManager.WifiLock wifiLock = null;
         if (wifiManager != null) {
             wifiLock = wifiManager.createWifiLock(TAG);
