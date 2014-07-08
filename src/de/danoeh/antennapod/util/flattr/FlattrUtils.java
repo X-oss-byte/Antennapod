@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.util.flattr;
 
 import android.app.AlertDialog;
@@ -59,7 +60,7 @@ public class FlattrUtils {
 			if (BuildConfig.DEBUG)
 				Log.d(TAG, "Retrieving access token");
 			String token = PreferenceManager.getDefaultSharedPreferences(
-					PodcastApp.getInstance())
+					PodcastApp.getAppContext())
 					.getString(PREF_ACCESS_TOKEN, null);
 			if (token != null) {
 				if (BuildConfig.DEBUG)
@@ -83,7 +84,7 @@ public class FlattrUtils {
 		if (BuildConfig.DEBUG)
 			Log.d(TAG, "Storing token");
 		SharedPreferences.Editor editor = PreferenceManager
-				.getDefaultSharedPreferences(PodcastApp.getInstance()).edit();
+				.getDefaultSharedPreferences(PodcastApp.getAppContext()).edit();
 		if (token != null) {
 			editor.putString(PREF_ACCESS_TOKEN, token.getToken());
 		} else {

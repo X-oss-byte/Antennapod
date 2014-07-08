@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.asynctask;
 
 import android.annotation.SuppressLint;
@@ -40,7 +41,7 @@ public class ImageLoader {
      * the FeedImage the bitmap belongs to.
      */
 
-    final int memClass = ((ActivityManager) PodcastApp.getInstance()
+    final int memClass = ((ActivityManager) PodcastApp.getAppContext()
             .getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
 
     // Use 1/8th of the available memory for this memory cache.
