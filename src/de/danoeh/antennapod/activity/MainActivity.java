@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.activity;
 
 import android.content.Intent;
@@ -298,12 +299,12 @@ public class MainActivity extends ActionBarActivity {
         if (drawerToogle.onOptionsItemSelected(item)) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.show_preferences:
-                startActivity(new Intent(this, PreferenceActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.show_preferences) {
+            startActivity(new Intent(this, PreferenceActivity.class));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 

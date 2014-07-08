@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.fragment;
 
 import android.annotation.SuppressLint;
@@ -187,32 +188,34 @@ public class ItemlistFragment extends ListFragment {
         if (!super.onOptionsItemSelected(item)) {
             try {
                 if (!FeedMenuHandler.onOptionsItemClicked(getActivity(), item, feed)) {
-                    switch (item.getItemId()) {
-                        case R.id.remove_item:
-                            final FeedRemover remover = new FeedRemover(
-                                    getActivity(), feed) {
-                                @Override
-                                protected void onPostExecute(Void result) {
-                                    super.onPostExecute(result);
-                                    ((MainActivity) getActivity()).loadNavFragment(MainActivity.POS_NEW, null);
-                                }
-                            };
-                            ConfirmationDialog conDialog = new ConfirmationDialog(getActivity(),
-                                    R.string.remove_feed_label,
-                                    R.string.feed_delete_confirmation_msg) {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.remove_item) {
+                        final FeedRemover remover = new FeedRemover(
+                                getActivity(), feed) {
+                            @Override
+                            protected void onPostExecute(Void result) {
+                                super.onPostExecute(result);
+                                ((MainActivity) getActivity()).loadNavFragment(
+                                        MainActivity.POS_NEW,
+                                        null);
+                            }
+                        };
+                        ConfirmationDialog conDialog = new ConfirmationDialog(
+                                getActivity(),
+                                R.string.remove_feed_label,
+                                R.string.feed_delete_confirmation_msg) {
 
-                                @Override
-                                public void onConfirmButtonPressed(
-                                        DialogInterface dialog) {
-                                    dialog.dismiss();
-                                    remover.executeAsync();
-                                }
-                            };
-                            conDialog.createNewDialog().show();
-                            return true;
-                        default:
-                            return false;
-
+                            @Override
+                            public void onConfirmButtonPressed(
+                                    DialogInterface dialog) {
+                                dialog.dismiss();
+                                remover.executeAsync();
+                            }
+                        };
+                        conDialog.createNewDialog().show();
+                        return true;
+                    } else {
+                        return false;
                     }
                 } else {
                     return true;

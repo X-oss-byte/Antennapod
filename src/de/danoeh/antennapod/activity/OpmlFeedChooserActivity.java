@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.activity;
 
 import android.content.Intent;
@@ -113,15 +114,15 @@ public class OpmlFeedChooserActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.select_all_item:
-                selectAllItems(true);
-                return true;
-            case R.id.deselect_all_item:
-                selectAllItems(false);
-                return true;
-            default:
-                return false;
+        int itemId = item.getItemId();
+        if (itemId == R.id.select_all_item) {
+            selectAllItems(true);
+            return true;
+        } else if (itemId == R.id.deselect_all_item) {
+            selectAllItems(false);
+            return true;
+        } else {
+            return false;
         }
     }
 

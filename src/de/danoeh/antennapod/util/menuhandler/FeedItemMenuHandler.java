@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.util.menuhandler;
 
 import android.content.Context;
@@ -116,52 +117,54 @@ public class FeedItemMenuHandler {
     public static boolean onMenuItemClicked(Context context, int menuItemId,
                                             FeedItem selectedItem) throws DownloadRequestException {
         DownloadRequester requester = DownloadRequester.getInstance();
-        switch (menuItemId) {
-            case R.id.skip_episode_item:
-                context.sendBroadcast(new Intent(
-                        PlaybackService.ACTION_SKIP_CURRENT_EPISODE));
-                break;
-            case R.id.download_item:
-                DBTasks.downloadFeedItems(context, selectedItem);
-                break;
-            case R.id.play_item:
-                DBTasks.playMedia(context, selectedItem.getMedia(), true, true,
-                        false);
-                break;
-            case R.id.remove_item:
-                DBWriter.deleteFeedMediaOfItem(context, selectedItem.getMedia().getId());
-                break;
-            case R.id.cancel_download_item:
-                requester.cancelDownload(context, selectedItem.getMedia());
-                break;
-            case R.id.mark_read_item:
-                DBWriter.markItemRead(context, selectedItem, true, true);
-                break;
-            case R.id.mark_unread_item:
-                DBWriter.markItemRead(context, selectedItem, false, true);
-                break;
-            case R.id.add_to_queue_item:
-                DBWriter.addQueueItem(context, selectedItem.getId());
-                break;
-            case R.id.remove_from_queue_item:
-                DBWriter.removeQueueItem(context, selectedItem.getId(), true);
-                break;
-            case R.id.stream_item:
-                DBTasks.playMedia(context, selectedItem.getMedia(), true, true,
-                        true);
-                break;
-            case R.id.visit_website_item:
-                Uri uri = Uri.parse(selectedItem.getLink());
-                context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                break;
-            case R.id.support_item:
-                DBTasks.flattrItemIfLoggedIn(context, selectedItem);
-                break;
-            case R.id.share_link_item:
-                ShareUtils.shareFeedItemLink(context, selectedItem);
-                break;
-            default:
-                return false;
+        if (menuItemId == R.id.skip_episode_item) {
+            context.sendBroadcast(
+                    new Intent(
+                            PlaybackService.ACTION_SKIP_CURRENT_EPISODE));
+
+        } else if (menuItemId == R.id.download_item) {
+            DBTasks.downloadFeedItems(context, selectedItem);
+
+        } else if (menuItemId == R.id.play_item) {
+            DBTasks.playMedia(
+                    context, selectedItem.getMedia(), true, true,
+                    false);
+
+        } else if (menuItemId == R.id.remove_item) {
+            DBWriter.deleteFeedMediaOfItem(context, selectedItem.getMedia().getId());
+
+        } else if (menuItemId == R.id.cancel_download_item) {
+            requester.cancelDownload(context, selectedItem.getMedia());
+
+        } else if (menuItemId == R.id.mark_read_item) {
+            DBWriter.markItemRead(context, selectedItem, true, true);
+
+        } else if (menuItemId == R.id.mark_unread_item) {
+            DBWriter.markItemRead(context, selectedItem, false, true);
+
+        } else if (menuItemId == R.id.add_to_queue_item) {
+            DBWriter.addQueueItem(context, selectedItem.getId());
+
+        } else if (menuItemId == R.id.remove_from_queue_item) {
+            DBWriter.removeQueueItem(context, selectedItem.getId(), true);
+
+        } else if (menuItemId == R.id.stream_item) {
+            DBTasks.playMedia(
+                    context, selectedItem.getMedia(), true, true,
+                    true);
+
+        } else if (menuItemId == R.id.visit_website_item) {
+            Uri uri = Uri.parse(selectedItem.getLink());
+            context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+        } else if (menuItemId == R.id.support_item) {
+            DBTasks.flattrItemIfLoggedIn(context, selectedItem);
+
+        } else if (menuItemId == R.id.share_link_item) {
+            ShareUtils.shareFeedItemLink(context, selectedItem);
+
+        } else {
+            return false;
         }
         // Refresh menu state
 

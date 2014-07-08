@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.fragment;
 
 import android.annotation.SuppressLint;
@@ -270,34 +271,35 @@ public class ItemDescriptionFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         boolean handled = selectedURL != null;
         if (selectedURL != null) {
-            switch (item.getItemId()) {
-                case R.id.open_in_browser_item:
-                    Uri uri = Uri.parse(selectedURL);
-                    getActivity()
-                            .startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                    break;
-                case R.id.share_url_item:
-                    ShareUtils.shareLink(getActivity(), selectedURL);
-                    break;
-                case R.id.copy_url_item:
-                    if (android.os.Build.VERSION.SDK_INT >= 11) {
-                        ClipData clipData = ClipData.newPlainText(selectedURL,
-                                selectedURL);
-                        android.content.ClipboardManager cm = (android.content.ClipboardManager) getActivity()
-                                .getSystemService(Context.CLIPBOARD_SERVICE);
-                        cm.setPrimaryClip(clipData);
-                    } else {
-                        android.text.ClipboardManager cm = (android.text.ClipboardManager) getActivity()
-                                .getSystemService(Context.CLIPBOARD_SERVICE);
-                        cm.setText(selectedURL);
-                    }
-                    Toast t = Toast.makeText(getActivity(),
-                            R.string.copied_url_msg, Toast.LENGTH_SHORT);
-                    t.show();
-                    break;
-                default:
-                    handled = false;
-                    break;
+            int itemId = item.getItemId();
+            if (itemId == R.id.open_in_browser_item) {
+                Uri uri = Uri.parse(selectedURL);
+                getActivity()
+                        .startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+            } else if (itemId == R.id.share_url_item) {
+                ShareUtils.shareLink(getActivity(), selectedURL);
+
+            } else if (itemId == R.id.copy_url_item) {
+                if (Build.VERSION.SDK_INT >= 11) {
+                    ClipData clipData = ClipData.newPlainText(
+                            selectedURL,
+                            selectedURL);
+                    ClipboardManager cm = (ClipboardManager) getActivity()
+                            .getSystemService(Context.CLIPBOARD_SERVICE);
+                    cm.setPrimaryClip(clipData);
+                } else {
+                    android.text.ClipboardManager cm = (android.text.ClipboardManager) getActivity()
+                            .getSystemService(Context.CLIPBOARD_SERVICE);
+                    cm.setText(selectedURL);
+                }
+                Toast t = Toast.makeText(
+                        getActivity(),
+                        R.string.copied_url_msg, Toast.LENGTH_SHORT);
+                t.show();
+
+            } else {
+                handled = false;
 
             }
             selectedURL = null;

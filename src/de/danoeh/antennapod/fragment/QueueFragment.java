@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.fragment;
 
 import android.app.Activity;
@@ -178,15 +179,15 @@ public class QueueFragment extends Fragment {
             return super.onContextItemSelected(item);
         }
 
-        switch (item.getItemId()) {
-            case R.id.move_to_top_item:
-                DBWriter.moveQueueItemToTop(getActivity(), selectedItem.getId(), true);
-                return true;
-            case R.id.move_to_bottom_item:
-                DBWriter.moveQueueItemToBottom(getActivity(), selectedItem.getId(), true);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.move_to_top_item) {
+            DBWriter.moveQueueItemToTop(getActivity(), selectedItem.getId(), true);
+            return true;
+        } else if (itemId == R.id.move_to_bottom_item) {
+            DBWriter.moveQueueItemToBottom(getActivity(), selectedItem.getId(), true);
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
         }
     }
 

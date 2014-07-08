@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.util.menuhandler;
 
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import de.danoeh.antennapod.BuildConfig;
 import de.danoeh.antennapod.R;
-import de.danoeh.antennapod.activity.FeedInfoActivity;
 import de.danoeh.antennapod.feed.Feed;
 import de.danoeh.antennapod.service.download.DownloadService;
 import de.danoeh.antennapod.storage.DBTasks;
@@ -59,29 +59,29 @@ public class FeedMenuHandler {
 	 */
 	public static boolean onOptionsItemClicked(Context context, MenuItem item,
 			Feed selectedFeed) throws DownloadRequestException {
-		switch (item.getItemId()) {
-		case R.id.refresh_item:
-			DBTasks.refreshFeed(context, selectedFeed);
-			break;
-		case R.id.mark_all_read_item:
-			DBWriter.markFeedRead(context, selectedFeed.getId());
-			break;
-		case R.id.visit_website_item:
-			Uri uri = Uri.parse(selectedFeed.getLink());
-			context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-			break;
-		case R.id.support_item:
-			DBTasks.flattrFeedIfLoggedIn(context, selectedFeed);
-			break;
-		case R.id.share_link_item:
-			ShareUtils.shareFeedlink(context, selectedFeed);
-			break;
-		case R.id.share_source_item:
-			ShareUtils.shareFeedDownloadLink(context, selectedFeed);
-			break;
-		default:
-			return false;
-		}
+        int itemId = item.getItemId();
+        if (itemId == R.id.refresh_item) {
+            DBTasks.refreshFeed(context, selectedFeed);
+
+        } else if (itemId == R.id.mark_all_read_item) {
+            DBWriter.markFeedRead(context, selectedFeed.getId());
+
+        } else if (itemId == R.id.visit_website_item) {
+            Uri uri = Uri.parse(selectedFeed.getLink());
+            context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+        } else if (itemId == R.id.support_item) {
+            DBTasks.flattrFeedIfLoggedIn(context, selectedFeed);
+
+        } else if (itemId == R.id.share_link_item) {
+            ShareUtils.shareFeedlink(context, selectedFeed);
+
+        } else if (itemId == R.id.share_source_item) {
+            ShareUtils.shareFeedDownloadLink(context, selectedFeed);
+
+        } else {
+            return false;
+        }
 		return true;
 	}
 }

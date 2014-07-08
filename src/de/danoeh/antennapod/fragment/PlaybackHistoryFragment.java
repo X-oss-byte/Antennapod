@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.fragment;
 
 import android.app.Activity;
@@ -145,12 +146,12 @@ public class PlaybackHistoryFragment extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (!super.onOptionsItemSelected(item)) {
-            switch(item.getItemId()) {
-                case R.id.clear_history_item:
-                    DBWriter.clearPlaybackHistory(getActivity());
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+            if (itemId == R.id.clear_history_item) {
+                DBWriter.clearPlaybackHistory(getActivity());
+                return true;
+            } else {
+                return false;
             }
         } else {
             return true;

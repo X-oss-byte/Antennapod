@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.activity;
 
 import android.app.Activity;
@@ -290,18 +291,18 @@ public class DirectoryChooserActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		case R.id.new_folder_item:
+		} else if (itemId == R.id.new_folder_item) {
 			openNewFolderDialog();
 			return true;
-		case R.id.set_to_default_folder_item:
+		} else if (itemId == R.id.set_to_default_folder_item) {
 			selectedDir = null;
 			returnSelectedFolder();
 			return true;
-		default:
+		} else {
 			return false;
 		}
 	}

@@ -1,3 +1,4 @@
+// The files and modifications provided by Facebook are for testing and evaluation purposes only.  Facebook reserves all rights not expressly granted.
 package de.danoeh.antennapod.activity;
 
 import android.app.AlertDialog;
@@ -277,74 +278,79 @@ public abstract class MediaplayerActivity extends ActionBarActivity
             startActivity(intent);
             return true;
         } else if (media != null) {
-            switch (item.getItemId()) {
-                case R.id.disable_sleeptimer_item:
-                    if (controller.serviceAvailable()) {
-                        AlertDialog.Builder stDialog = new AlertDialog.Builder(this);
-                        stDialog.setTitle(R.string.sleep_timer_label);
-                        stDialog.setMessage(getString(R.string.time_left_label)
-                                + Converter.getDurationStringLong((int) controller
-                                .getSleepTimerTimeLeft()));
-                        stDialog.setPositiveButton(
-                                R.string.disable_sleeptimer_label,
-                                new DialogInterface.OnClickListener() {
+            int itemId = item.getItemId();
+            if (itemId == R.id.disable_sleeptimer_item) {
+                if (controller.serviceAvailable()) {
+                    AlertDialog.Builder stDialog = new AlertDialog.Builder(this);
+                    stDialog.setTitle(R.string.sleep_timer_label);
+                    stDialog.setMessage(
+                            getString(R.string.time_left_label)
+                                    + Converter.getDurationStringLong(
+                                    (int) controller
+                                            .getSleepTimerTimeLeft()));
+                    stDialog.setPositiveButton(
+                            R.string.disable_sleeptimer_label,
+                            new DialogInterface.OnClickListener() {
 
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        dialog.dismiss();
-                                        controller.disableSleepTimer();
-                                    }
+                                @Override
+                                public void onClick(
+                                        DialogInterface dialog,
+                                        int which) {
+                                    dialog.dismiss();
+                                    controller.disableSleepTimer();
                                 }
-                        );
-                        stDialog.setNegativeButton(R.string.cancel_label,
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        dialog.dismiss();
-                                    }
-                                }
-                        );
-                        stDialog.create().show();
-                    }
-                    break;
-                case R.id.set_sleeptimer_item:
-                    if (controller.serviceAvailable()) {
-                        TimeDialog td = new TimeDialog(this,
-                                R.string.set_sleeptimer_label,
-                                R.string.set_sleeptimer_label) {
-
-                            @Override
-                            public void onTimeEntered(long millis) {
-                                controller.setSleepTimer(millis);
                             }
-                        };
-                        td.show();
-                        break;
+                    );
+                    stDialog.setNegativeButton(
+                            R.string.cancel_label,
+                            new DialogInterface.OnClickListener() {
 
-                    }
-                case R.id.visit_website_item:
-                    Uri uri = Uri.parse(media.getWebsiteLink());
-                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                    break;
-                case R.id.support_item:
-                    if (media instanceof FeedMedia) {
-                        FeedItem feedItem = ((FeedMedia) media).getItem();
-                        DBTasks.flattrItemIfLoggedIn(this, feedItem);
-                    }
-                    break;
-                case R.id.share_link_item:
-                    ShareUtils.shareLink(this, media.getWebsiteLink());
-                    break;
-                case R.id.skip_episode_item:
-                    sendBroadcast(new Intent(
-                            PlaybackService.ACTION_SKIP_CURRENT_EPISODE));
-                    break;
-                default:
-                    return false;
+                                @Override
+                                public void onClick(
+                                        DialogInterface dialog,
+                                        int which) {
+                                    dialog.dismiss();
+                                }
+                            }
+                    );
+                    stDialog.create().show();
+                }
 
+            } else if (itemId == R.id.set_sleeptimer_item) {
+                if (controller.serviceAvailable()) {
+                    TimeDialog td = new TimeDialog(
+                            this,
+                            R.string.set_sleeptimer_label,
+                            R.string.set_sleeptimer_label) {
+
+                        @Override
+                        public void onTimeEntered(long millis) {
+                            controller.setSleepTimer(millis);
+                        }
+                    };
+                    td.show();
+                }
+
+            } else if (itemId == R.id.visit_website_item) {
+                Uri uri = Uri.parse(media.getWebsiteLink());
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+            } else if (itemId == R.id.support_item) {
+                if (media instanceof FeedMedia) {
+                    FeedItem feedItem = ((FeedMedia) media).getItem();
+                    DBTasks.flattrItemIfLoggedIn(this, feedItem);
+                }
+
+            } else if (itemId == R.id.share_link_item) {
+                ShareUtils.shareLink(this, media.getWebsiteLink());
+
+            } else if (itemId == R.id.skip_episode_item) {
+                sendBroadcast(
+                        new Intent(
+                                PlaybackService.ACTION_SKIP_CURRENT_EPISODE));
+
+            } else {
+                return false;
             }
             return true;
         } else {
